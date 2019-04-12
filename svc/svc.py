@@ -65,5 +65,5 @@ if __name__ == '__main__':
     evaluate(trained_model, x_train, y_train)
 
     # Test the model
-    print("Evaluate model\n")
+    print("Train model\n")
     test(trained_model, x_test, y_test)
