@@ -1,0 +1,5 @@
+*.xml
+*.iml
+*.pyc
+*.local
+neuronal_networks/logs
