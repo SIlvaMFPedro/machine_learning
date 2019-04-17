@@ -17,8 +17,8 @@ fprintf('Finding closest centroids.\n\n');
 % Load & plot dataset projdata.mat
 load('projdata.mat')
 % Select # of clusters and initial position of centroids
-K = 3; % # of Centroids
-initial_centroids = [3 3; 6 2; 8 5];
+K = 4; % # of Centroids
+initial_centroids = [3 3; 6 2; 8 5; 7 4;];
 
 % Find the closest centroids for the examples
 idx = findClosestCentroids(X, initial_centroids);
@@ -81,17 +81,17 @@ fprintf('\nRunning K-Means clustering on pixels from an image.\n\n');
 % A = imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\práticas\LabWork7\images\ps.jpg')
 % A = imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\práticas\LabWork7\images\test.jpg')
 
-NumberOfImages = 1;     % choose the number of images you want to give as input.
-prefix_image = 'C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\frames\frame';
-file_format = '.png'
-template = rgb2gray(imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\templates\sinal.png'));
+NumberOfImages = 5;     % choose the number of images you want to give as input.
+prefix_image = 'C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\atlascar_frames\03\frame';
+file_format = '.jpg'
+template = rgb2gray(imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\templates\screenshot2.png'));
 for n=1:NumberOfImages
     A = imread(strcat(prefix_image, num2str(n), file_format))
     % If imread does not work for you, you can try instead
     %   load ('bird_small.mat');
 
     %Extract each RGB dimensions. For example, the red color
-    I=A;  I(:,:,2)=0;  I(:,:,3)=0; 
+    I=A;  I(:,:,1)=0;  I(:,:,2)=0; 
     subplot(221), imshow(I), title('Red color')
 
     A=double(A);%Transform into numerical format for computations
@@ -179,6 +179,7 @@ for n=1:NumberOfImages
     
     % Display image result
     figure,imagesc(Res);
+    
     
     
     % Load image data from compression result
