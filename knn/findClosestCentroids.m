@@ -19,7 +19,7 @@ idx = zeros(m, 1);
 %
 %You can use a for-loop over the examples to compute this.
 %
-for i = 1:length(X)
+for i = 1:m
     [~, ind] = min(sum((repmat(X(i,:),K,1) - centroids).^2, 2));
     idx(i) = ind;
     

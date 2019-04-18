@@ -16,9 +16,10 @@ fprintf('Finding closest centroids.\n\n');
 
 % Load & plot dataset projdata.mat
 load('projdata.mat')
+figure, plot(X(:,1), X(:,2), 'ro', 'MarkerSize', 10)
 % Select # of clusters and initial position of centroids
-K = 4; % # of Centroids
-initial_centroids = [3 3; 6 2; 8 5; 7 4;];
+K = 3; % # of Centroids
+initial_centroids = [3 3; 6 2; 8 5];
 
 % Find the closest centroids for the examples
 idx = findClosestCentroids(X, initial_centroids);
@@ -84,15 +85,25 @@ fprintf('\nRunning K-Means clustering on pixels from an image.\n\n');
 NumberOfImages = 5;     % choose the number of images you want to give as input.
 prefix_image = 'C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\atlascar_frames\03\frame';
 file_format = '.jpg'
-template = rgb2gray(imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\templates\screenshot2.png'));
+template = rgb2gray(imread('C:\Users\silva\OneDrive - Universidade de Aveiro\AA\projecto\LabWork\templates\sinal2.png'));
 for n=1:NumberOfImages
     A = imread(strcat(prefix_image, num2str(n), file_format))
     % If imread does not work for you, you can try instead
     %   load ('bird_small.mat');
 
-    %Extract each RGB dimensions. For example, the red color
-    I=A;  I(:,:,1)=0;  I(:,:,2)=0; 
-    subplot(221), imshow(I), title('Red color')
+    %Extract each RGB dimensions.
+    figure
+    I=A;  I(:,:,2)=0;  I(:,:,3)=0; % Extract Red colour
+    subplot(221), imagesc(I), title('Red color')
+    
+    I=A;  I(:,:,1)=0;  I(:,:,3)=0; % Extract Green colour
+    subplot(222), imagesc(I), title('Green color')
+    
+    I=A;  I(:,:,1)=0;  I(:,:,2)=0; % Extract Blue colour
+    subplot(223), imagesc(I), title('Blue color')
+    
+    I=A;
+    subplot(224), imagesc(I), title ('Original color image')
 
     A=double(A);%Transform into numerical format for computations
     A = A / 255; % Divide by 255 so that all values are in the range 0 - 1
@@ -127,7 +138,8 @@ for n=1:NumberOfImages
 
     % Find closest cluster members
     idx = findClosestCentroids(X, centroids);
-
+    
+    % Essentially, now we have represented the image X as in terms of the indices in idx. 
     % We can now recover the image from the indices (idx) by mapping each pixel
     % (specified by its index in idx) to the centroid value
     X_recovered = centroids(idx,:);
