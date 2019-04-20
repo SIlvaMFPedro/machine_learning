@@ -94,7 +94,7 @@ def main():
     trainingSet = []
     testSet = []
     split = 0.67
-    filename = '../csv/result.csv'
+    filename = '../csv/result_02.csv'
     loadDataset(filename, split, trainingSet, testSet)
     print 'Train set: ' + repr(len(trainingSet))
     print 'Test set: ' + repr(len(testSet))
