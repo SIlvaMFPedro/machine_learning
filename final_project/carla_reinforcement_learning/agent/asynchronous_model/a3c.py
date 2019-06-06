@@ -255,3 +255,4 @@ class A3CTrainer(object):
         """
         serializers.save_hdf5(model_filename, self.model)
         serializers.save_hdf5(model_filename + '.opt', self.optimizer)
+
