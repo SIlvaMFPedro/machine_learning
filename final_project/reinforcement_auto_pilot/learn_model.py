@@ -26,6 +26,7 @@ TUNING = False  # If False, just use arbitrary, pre-selected params.
 # -----------------------------
 #   Params to Filename Function
 # -----------------------------
+# -----------------------------
 def params_to_filename(params):
     return str(params['nn'][0]) + '-' + str(params['nn'][1]) + '-' + \
             str(params['batchSize']) + '-' + str(params['buffer'])
@@ -117,6 +118,21 @@ def train_network(model, params):
         # save results in a log file
         log_results(filename, data_collect, loss_log)
 
+
+# ----------------------------------
+#   Evaluate Neural Network Function
+# ----------------------------------
+def evaluate_network(model, x_train, y_train, batchSize):
+    score = model.evaluate(x_train, y_train, batch_size=batchSize)
+    print("Evaluation Score: %d" % score)
+
+
+# ----------------------------------
+#   Test Neural Network Function
+# ----------------------------------
+def test_network(model, x_test, y_test, batchSize):
+    score = model.evaluate(x_test, y_test, batch_size=batchSize)
+    print("Test Score: %d" % score)
 
 # -------------------------------
 #   Log Results Function
