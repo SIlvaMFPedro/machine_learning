@@ -43,6 +43,8 @@ def train_network(model, params):
     batchSize = params['batchSize']
     buffer = params['buffer']
 
+    X_train = 0
+    Y_train = 0
     max_car_distance = 0
     car_distance = 0
     t = 0
@@ -80,6 +82,7 @@ def train_network(model, params):
             minibatch = random.sample(replay, batchSize)
             # get training values
             x_train, y_train = process_minibatch2(minibatch, model)
+            X_train, Y_train = x_train, y_train
             # train the model on this batch
             history = LossHistory()
             model.fit(x_train, y_train, batch_size=batchSize,
@@ -114,6 +117,7 @@ def train_network(model, params):
                                str(t) + '.h5',
                                overwrite=True)
             print("Saving model %s - %d" % (filename, t))
+            evaluate_network(model, X_train, Y_train, batchSize)
 
         # save results in a log file
         log_results(filename, data_collect, loss_log)
@@ -133,6 +137,7 @@ def evaluate_network(model, x_train, y_train, batchSize):
 def test_network(model, x_test, y_test, batchSize):
     score = model.evaluate(x_test, y_test, batch_size=batchSize)
     print("Test Score: %d" % score)
+
 
 # -------------------------------
 #   Log Results Function
