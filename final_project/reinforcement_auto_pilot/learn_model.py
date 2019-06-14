@@ -45,6 +45,8 @@ def train_network(model, params):
 
     X_train = 0
     Y_train = 0
+    X_test = 0
+    Y_test = 0
     max_car_distance = 0
     car_distance = 0
     t = 0
@@ -80,13 +82,16 @@ def train_network(model, params):
                 replay.pop(0)
             # pick a random sample experience from replay memory
             minibatch = random.sample(replay, batchSize)
+            # get test values
+            x_test, y_test = process_minibatch_test(minibatch, model)
+            X_test, Y_test = x_test, y_test
             # get training values
-            x_train, y_train = process_minibatch2(minibatch, model)
+            x_train, y_train = process_minibatch_train(minibatch, model)
             X_train, Y_train = x_train, y_train
             # train the model on this batch
             history = LossHistory()
             model.fit(x_train, y_train, batch_size=batchSize,
-                      nb_epoch=1, verbose=0, callbacks=[history])
+                      epochs=1, verbose=0, callbacks=[history])
             loss_log.append(history.losses)
 
         # update current state
@@ -118,6 +123,7 @@ def train_network(model, params):
                                overwrite=True)
             print("Saving model %s - %d" % (filename, t))
             evaluate_network(model, X_train, Y_train, batchSize)
+            test_network(model, X_test, Y_test, batchSize)
 
         # save results in a log file
         log_results(filename, data_collect, loss_log)
@@ -155,9 +161,9 @@ def log_results(filename, data_collect, loss_log):
 
 
 # -------------------------------
-#   Process Minibatch2 Function
+#   Process Minibatch Function
 # -------------------------------
-def process_minibatch2(minibatch, model):
+def process_minibatch_train(minibatch, model):
     # Instead of feeding the data to the model one by one, feeding the whole batch proved to be much more efficient
     mb_len = len(minibatch)
 
@@ -192,10 +198,10 @@ def process_minibatch2(minibatch, model):
 # -------------------------------
 #   Process Minibatch Function
 # -------------------------------
-def process_minibatch(minibatch, model):
+def process_minibatch_test(minibatch, model):
     # This function feeds the data to the model one by one
-    x_train = []
-    y_train = []
+    x_test = []
+    y_test = []
     # Loop through the batch and create arrays for x and y so that we can fit the model at every step
     for memory in minibatch:
         old_state_m, action_m, reward_m, new_state_m = memory   # get stored values
@@ -211,11 +217,11 @@ def process_minibatch(minibatch, model):
             update = reward_m
         # update the value for the taken action
         y[0][action_m] = update
-        x_train.append(old_state_m.reshape(NUM_INPUT, ))
-        y_train.append(y.reshape(3, ))
+        x_test.append(old_state_m.reshape(NUM_INPUT, ))
+        y_test.append(y.reshape(3, ))
 
-    x_train = np.array(x_train)
-    y_train = np.array(y_train)
+    x_train = np.array(x_test)
+    y_train = np.array(y_test)
     return x_train, y_train
 
 
