@@ -48,6 +48,6 @@ def play(model):
 #   Main Function
 # ------------------------
 if __name__ == "__main__":
-    saved_model = 'saved-models/128-128-64-50000-50000.h5'
+    saved_model = 'saved-models/128-128-64-50000-25000.h5'
     model = neural_network(NUM_SENSORS, [128, 128], saved_model)
     play(model)

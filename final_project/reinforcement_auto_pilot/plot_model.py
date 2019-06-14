@@ -102,7 +102,8 @@ def plot_file(filename, type='loss'):
 # --------------------------
 if __name__ == "__main__":
     # Get the result files.
-    os.chdir("results/frames")
+    # os.chdir("results/frames")
+    os.chdir("results/frames-valid")
 
     for f in glob.glob("learn*.csv"):
         plot_file(f, 'learn')
