@@ -269,7 +269,7 @@ if __name__ == "__main__":
             launch_learn(param_set)
 
     else:
-        nn_param = [128, 128]
+        nn_param = [512, 512]
         params = {
             "batchSize": 64,
             "buffer": 50000,
