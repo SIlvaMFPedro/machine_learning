@@ -11,6 +11,7 @@
 #   IMPORTS
 # ------------------------
 import numpy as np
+import pandas as pd
 import random
 import csv
 import os.path
@@ -53,6 +54,7 @@ def train_network(model, params):
     data_collect = []
     replay = []         # stores tuples of (S, A, R, S')
     loss_log = []
+    evaluation_scores = []
 
     game_state = car_module.GameState()     # create new game instance
     _, state = game_state.frame_step(2)     # get initial state from the vehicle object.
@@ -122,7 +124,11 @@ def train_network(model, params):
                                str(t) + '.h5',
                                overwrite=True)
             print("Saving model %s - %d" % (filename, t))
-            evaluate_network(model, X_train, Y_train, batchSize)
+            evaluation_score = evaluate_network(model, X_train, Y_train, batchSize)
+            evaluation_scores.append(evaluation_score)
+            # evaluation_scores = np.array(evaluation_scores)
+            log_evaluate_results(filename, evaluation_scores)
+            # log_evaluate_results(filename, evaluation_score)
             test_network(model, X_test, Y_test, batchSize)
 
         # save results in a log file
@@ -135,6 +141,23 @@ def train_network(model, params):
 def evaluate_network(model, x_train, y_train, batchSize):
     score = model.evaluate(x_train, y_train, batch_size=batchSize)
     print("Evaluation Score: %d" % score)
+    np.int_(score)
+    return score
+
+
+# -------------------------------------
+#   Evaluate Score Log Results Functions
+# -------------------------------------
+def log_evaluate_results(filename, evaluation_scores):
+    # Save the evaluation results to a file so they can later be ploted.
+    # with open('evaluation-scores/evaluation_data-' + filename + '.csv', 'w') as data_dump:
+    #     wr = csv.writer(data_dump)
+    #     for evaluation_score in evaluation_scores:
+    #         wr.writerow(evaluation_score)
+    evaluation_scores = np.array(evaluation_scores)
+    pd.DataFrame(evaluation_scores).to_csv("/home/pedro/Documents/AA/machine_learning/final_project/reinforcement_auto_pilot/evaluation-scores/evaluation_data-" + filename + ".csv",
+                                           header=None,
+                                           index=None)
 
 
 # ----------------------------------
@@ -220,9 +243,9 @@ def process_minibatch_test(minibatch, model):
         x_test.append(old_state_m.reshape(NUM_INPUT, ))
         y_test.append(y.reshape(3, ))
 
-    x_train = np.array(x_test)
-    y_train = np.array(y_test)
-    return x_train, y_train
+    x_test = np.array(x_test)
+    y_test = np.array(y_test)
+    return x_test, y_test
 
 
 # -------------------------------

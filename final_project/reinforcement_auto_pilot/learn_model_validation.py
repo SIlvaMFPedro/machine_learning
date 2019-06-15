@@ -220,8 +220,8 @@ def process_minibatch_test(minibatch, model):
         x_test.append(old_state_m.reshape(NUM_INPUT, ))
         y_test.append(y.reshape(3, ))
 
-    x_train = np.array(x_test)
-    y_train = np.array(y_test)
+    x_test = np.array(x_test)
+    y_test = np.array(y_test)
     return x_train, y_train
 
 
