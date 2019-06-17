@@ -55,6 +55,7 @@ def train_network(model, params):
     replay = []         # stores tuples of (S, A, R, S')
     loss_log = []
     evaluation_scores = []
+    log_history = []
 
     game_state = car_module.GameState()     # create new game instance
     _, state = game_state.frame_step(2)     # get initial state from the vehicle object.
@@ -95,6 +96,7 @@ def train_network(model, params):
             model.fit(x_train, y_train, batch_size=batchSize,
                       epochs=1, verbose=0, callbacks=[history])
             loss_log.append(history.losses)
+            log_history = history
 
         # update current state
         state = new_state
@@ -124,7 +126,7 @@ def train_network(model, params):
                                str(t) + '.h5',
                                overwrite=True)
             print("Saving model %s - %d" % (filename, t))
-            evaluation_score = evaluate_network(model, X_train, Y_train, batchSize)
+            evaluation_score = evaluate_network(model, X_train, Y_train, batchSize, log_history)
             evaluation_scores.append(evaluation_score)
             # evaluation_scores = np.array(evaluation_scores)
             log_evaluate_results(filename, evaluation_scores)
@@ -138,8 +140,8 @@ def train_network(model, params):
 # ----------------------------------
 #   Evaluate Neural Network Function
 # ----------------------------------
-def evaluate_network(model, x_train, y_train, batchSize):
-    score = model.evaluate(x_train, y_train, batch_size=batchSize)
+def evaluate_network(model, x_train, y_train, batchSize, log_history):
+    score = model.evaluate(x_train, y_train, batch_size=batchSize, callbacks=[log_history])
     print("Evaluation Score: %d" % score)
     np.int_(score)
     return score
@@ -292,7 +294,7 @@ if __name__ == "__main__":
             launch_learn(param_set)
 
     else:
-        nn_param = [256, 256]
+        nn_param = [128, 128]
         params = {
             "batchSize": 64,
             "buffer": 50000,
