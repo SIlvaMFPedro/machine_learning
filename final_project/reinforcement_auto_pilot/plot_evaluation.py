@@ -68,6 +68,7 @@ def plot_file(filename, type='loss'):
 
         plt.savefig(filename + '.png', bbox_inches='tight')
 
+
 # --------------------------
 #   Main Function
 # --------------------------
