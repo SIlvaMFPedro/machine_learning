@@ -16,7 +16,7 @@ import random
 import csv
 import os.path
 import timeit
-import car_module
+import car_model
 from neural_network import neural_network, LossHistory
 
 NUM_INPUT = 3
@@ -57,7 +57,7 @@ def train_network(model, params):
     evaluation_scores = []
     log_history = []
 
-    game_state = car_module.GameState()     # create new game instance
+    game_state = car_model.GameState()     # create new game instance
     _, state = game_state.frame_step(2)     # get initial state from the vehicle object.
     start_time = timeit.default_timer()     # start timer
 

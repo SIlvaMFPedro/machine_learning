@@ -15,7 +15,7 @@ Once the model is learned, use this module to play it.
 #   IMPORTS
 # ------------------------
 import numpy as np
-import car_module
+import car_model
 from neural_network import neural_network
 
 NUM_SENSORS = 3
@@ -26,7 +26,7 @@ NUM_SENSORS = 3
 # ------------------------
 def play(model):
     car_distance = 0
-    game_state = car_module.GameState()
+    game_state = car_model.GameState()
 
     # Get initial state
     _, state = game_state.frame_step(2)

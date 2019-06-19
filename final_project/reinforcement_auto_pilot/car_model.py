@@ -84,8 +84,8 @@ class GameState:
         self.obstacles.append(self.create_obstacle(200, 350, 100))
         self.obstacles.append(self.create_obstacle(700, 200, 125))
         self.obstacles.append(self.create_obstacle(600, 600, 35))
-        # Create a cat.
-        self.create_cat()
+        # Create a car obstacle
+        self.create_car_obstacle()
 
     """
         Create Car Method
@@ -115,9 +115,9 @@ class GameState:
         return c_body
 
     """
-        Create Cat Method
+        Create Obstacle Car Method
     """
-    def create_cat(self):
+    def create_car_obstacle(self):
         inertia = pymunk.moment_for_circle(1, 0, 14, (0, 0))
         self.cat_body = pymunk.Body(1, inertia)
         self.cat_body.position = 50, height - 100
@@ -153,7 +153,7 @@ class GameState:
         clock.tick()
         # Get the current location and the readings there.
         x, y = self.car_body.position
-        readings = self.get_sonar_readings(x, y, self.car_body.angle)
+        readings = self.get_sensor_readings(x, y, self.car_body.angle)
         normalized_readings = [(x - 20.0) / 20.0 for x in readings]
         state = np.array([normalized_readings])
         # Set the reward.
@@ -208,7 +208,7 @@ class GameState:
             self.crashed = False
             for i in range(10):
                 self.car_body.angle += .2  # Turn a little.
-                screen.fill(THECOLORS["grey7"])  # Red is scary!
+                screen.fill(THECOLORS["grey7"])
                 draw(screen, self.space)
                 self.space.step(1. / 10)
                 if draw_screen:
@@ -226,19 +226,19 @@ class GameState:
         return tot
 
     """
-        Get Sonar Readings Method
+        Get Sensor Readings Method
     """
-    def get_sonar_readings(self, x, y, angle):
+    def get_sensor_readings(self, x, y, angle):
         readings = []
         """
-        Instead of using a grid of boolean(ish) sensors, sonar readings
+        Instead of using a grid of boolean(ish) sensors, the sensor readings
         simply return N "distance" readings, one for each sonar
         we're simulating. The distance is a count of the first non-zero
         reading starting at the object. For instance, if the fifth sensor
         in a sonar "arm" is non-zero, then that arm returns a distance of 5.
         """
         # Make our arms.
-        arm_left = self.make_sonar_arm(x, y)
+        arm_left = self.make_sensor_arm(x, y)
         arm_middle = arm_left
         arm_right = arm_left
         # Rotate them and get readings.
@@ -277,9 +277,9 @@ class GameState:
         return i
 
     """
-        Make Sonar Arm Method
+        Make Sensor Arm Method
     """
-    def make_sonar_arm(self, x, y):
+    def make_sensor_arm(self, x, y):
         spread = 10  # Default spread.
         distance = 20  # Gap before first sensor.
         arm_points = []
