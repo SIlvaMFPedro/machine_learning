@@ -139,9 +139,9 @@ class GameState:
         # Move obstacles.
         if self.num_steps % 100 == 0:
             self.move_obstacles()
-        # Move cat.
+        # Move vehicle obstacle
         if self.num_steps % 5 == 0:
-            self.move_cat()
+            self.move_car_obstacle()
         driving_direction = Vec2d(1, 0).rotated(self.car_body.angle)
         self.car_body.velocity = 100 * driving_direction
         # Update the screen and stuff.
@@ -178,9 +178,9 @@ class GameState:
             direction = Vec2d(1, 0).rotated(self.car_body.angle + random.randint(-2, 2))
             obstacle.velocity = speed * direction
     """
-        Move Cat Method
+        Move Car Obstacle Method
     """
-    def move_cat(self):
+    def move_car_obstacle(self):
         speed = random.randint(20, 200)
         self.cat_body.angle -= random.randint(-1, 1)
         direction = Vec2d(1, 0).rotated(self.cat_body.angle)
