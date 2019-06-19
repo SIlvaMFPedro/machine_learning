@@ -92,6 +92,8 @@ def train_network(model, params):
             x_train, y_train = process_minibatch_train(minibatch, model)
             X_train, Y_train = x_train, y_train
             # train the model on this batch
+            # model.fit(x_train, y_train, batch_size=batchSize, epochs=1, verbose=0, validation_data=(x_test, y_test))
+            # train the model on this batch
             history = LossHistory()
             model.fit(x_train, y_train, batch_size=batchSize,
                       epochs=1, verbose=0, callbacks=[history])
