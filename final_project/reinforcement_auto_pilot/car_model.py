@@ -47,8 +47,8 @@ class GameState:
         self.crashed = False
         self.car_body = None
         self.car_shape = None
-        self.cat_body = None
-        self.cat_shape = None
+        self.c_body = None
+        self.c_shape = None
         # physics stuff
         self.space = pymunk.Space()
         self.space.gravity = pymunk.Vec2d(0., 0.)
@@ -119,14 +119,14 @@ class GameState:
     """
     def create_car_obstacle(self):
         inertia = pymunk.moment_for_circle(1, 0, 14, (0, 0))
-        self.cat_body = pymunk.Body(1, inertia)
-        self.cat_body.position = 50, height - 100
-        self.cat_shape = pymunk.Circle(self.cat_body, 30)
-        self.cat_shape.color = THECOLORS["orange"]
-        self.cat_shape.elasticity = 1.0
-        self.cat_shape.angle = 0.5
-        direction = Vec2d(1, 0).rotated(self.cat_body.angle)
-        self.space.add(self.cat_body, self.cat_shape)
+        self.c_body = pymunk.Body(1, inertia)
+        self.c_body.position = 50, height - 100
+        self.c_shape = pymunk.Circle(self.c_body, 30)
+        self.c_shape.color = THECOLORS["orange"]
+        self.c_shape.elasticity = 1.0
+        self.c_shape.angle = 0.5
+        direction = Vec2d(1, 0).rotated(self.c_body.angle)
+        self.space.add(self.c_body, self.c_shape)
 
     """
         Frame Step Method
@@ -182,9 +182,9 @@ class GameState:
     """
     def move_car_obstacle(self):
         speed = random.randint(20, 200)
-        self.cat_body.angle -= random.randint(-1, 1)
-        direction = Vec2d(1, 0).rotated(self.cat_body.angle)
-        self.cat_body.velocity = speed * direction
+        self.c_body.angle -= random.randint(-1, 1)
+        direction = Vec2d(1, 0).rotated(self.c_body.angle)
+        self.c_body.velocity = speed * direction
 
     """
         Check Car Crash Method
