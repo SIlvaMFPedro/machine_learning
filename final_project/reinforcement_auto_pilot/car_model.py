@@ -232,10 +232,10 @@ class GameState:
         readings = []
         """
         Instead of using a grid of boolean(ish) sensors, the sensor readings
-        simply return N "distance" readings, one for each sonar
+        simply return N "distance" readings, one for each sensor
         we're simulating. The distance is a count of the first non-zero
         reading starting at the object. For instance, if the fifth sensor
-        in a sonar "arm" is non-zero, then that arm returns a distance of 5.
+        in a sensor "arm" is non-zero, then that arm returns a distance of 5.
         """
         # Make our arms.
         arm_left = self.make_sensor_arm(x, y)
