@@ -154,10 +154,6 @@ def evaluate_network(model, x_train, y_train, batchSize, log_history):
 # -------------------------------------
 def log_evaluate_results(filename, evaluation_scores):
     # Save the evaluation results to a file so they can later be ploted.
-    # with open('evaluation-scores/evaluation_data-' + filename + '.csv', 'w') as data_dump:
-    #     wr = csv.writer(data_dump)
-    #     for evaluation_score in evaluation_scores:
-    #         wr.writerow(evaluation_score)
     evaluation_scores = np.array(evaluation_scores)
     pd.DataFrame(evaluation_scores).to_csv("/home/pedro/Documents/AA/machine_learning/final_project/reinforcement_auto_pilot/evaluation-scores/evaluation_data-" + filename + ".csv",
                                            header=None,
