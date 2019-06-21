@@ -84,6 +84,10 @@ Once you have a bunch of CSV files created via the learning, you can convert tho
 
 This will also spit out a bunch of loss and distance averages at the different parameters.
 
+# Videos
+
+![short_video](https://youtu.be/I3qTrub-1HQ)
+
 # Credits
 
 I'm grateful to the following people and the work they did that helped me learn how to do this:
