@@ -86,7 +86,7 @@ This will also spit out a bunch of loss and distance averages at the different p
 
 # Videos
 
-![short_video](https://youtu.be/I3qTrub-1HQ)
+[![watch the video](https://imgur.com/a/obXCW5k)](https://youtu.be/I3qTrub-1HQ)
 
 # Credits
 
