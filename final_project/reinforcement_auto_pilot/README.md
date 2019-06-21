@@ -86,8 +86,8 @@ This will also spit out a bunch of loss and distance averages at the different p
 
 # Videos
 
-[![watch the video](https://imgur.com/a/obXCW5k)](https://youtu.be/I3qTrub-1HQ)
-
+[![watch video play model](https://imgur.com/a/obXCW5k)](https://youtu.be/I3qTrub-1HQ)
+[![watch video learn model](https://imgur.com/a/obXCW5k)](https://youtu.be/3R-EZr5wHkg)
 # Credits
 
 I'm grateful to the following people and the work they did that helped me learn how to do this:
